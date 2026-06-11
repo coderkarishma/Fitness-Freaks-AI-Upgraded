@@ -70,12 +70,20 @@ async function loadModel() {
 
   // Try backends in order: webgl → wasm → cpu
   const backends = ['webgl', 'wasm', 'cpu'];
+  let backendReady = false;
   for (const backend of backends) {
     try {
       await tf.setBackend(backend);
       await tf.ready();
+      backendReady = true;
+      console.log('[FitnessFreak] TF.js backend:', backend);
       break;
-    } catch(e) { /* try next */ }
+    } catch(e) {
+      console.warn('[FitnessFreak] Backend failed:', backend, e.message);
+    }
+  }
+  if (!backendReady) {
+    throw new Error('No graphics backend available. Try Chrome or Firefox and refresh.');
   }
 
   // Try Lightning first (faster), then Thunder (more accurate)
@@ -84,18 +92,25 @@ async function loadModel() {
     poseDetection.movenet.modelType.SINGLEPOSE_THUNDER,
   ];
 
+  let lastError = null;
   for (const modelType of modelTypes) {
     try {
+      console.log('[FitnessFreak] Loading model:', modelType);
       detector = await poseDetection.createDetector(
         poseDetection.SupportedModels.MoveNet,
         { modelType }
       );
       modelLoaded = true;
-      return; // success
-    } catch(e) { /* try next */ }
+      console.log('[FitnessFreak] Model loaded:', modelType);
+      return;
+    } catch(e) {
+      lastError = e;
+      console.warn('[FitnessFreak] Model failed:', modelType, e.message);
+    }
   }
 
-  throw new Error('AI model failed to load. Please refresh the page.');
+  console.error('[FitnessFreak] All models failed:', lastError);
+  throw new Error('AI model failed to load. Error: ' + (lastError?.message || 'unknown'));
 }
 
 // ── Start camera ─────────────────────────────────────
