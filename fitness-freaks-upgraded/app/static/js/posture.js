@@ -59,26 +59,43 @@ async function loadModel() {
   if (modelLoaded && detector) return;
   showLoadingOverlay('Loading AI model (first time only)…');
   setStatus('loading', 'Loading AI model…');
-  try {
-    await tf.setBackend('webgl');
-    await tf.ready();
-    detector = await poseDetection.createDetector(
-      poseDetection.SupportedModels.MoveNet,
-      { modelType: poseDetection.movenet.modelType.SINGLEPOSE_LIGHTNING }
-    );
-    modelLoaded = true;
-  } catch(e) {
-    // Fallback: Thunder model
+
+  // Check TF.js loaded
+  if (typeof tf === 'undefined') {
+    throw new Error('TensorFlow.js failed to load. Check your internet connection and refresh.');
+  }
+  if (typeof poseDetection === 'undefined') {
+    throw new Error('Pose detection library failed to load. Check your internet connection and refresh.');
+  }
+
+  // Try backends in order: webgl → wasm → cpu
+  const backends = ['webgl', 'wasm', 'cpu'];
+  for (const backend of backends) {
+    try {
+      await tf.setBackend(backend);
+      await tf.ready();
+      break;
+    } catch(e) { /* try next */ }
+  }
+
+  // Try Lightning first (faster), then Thunder (more accurate)
+  const modelTypes = [
+    poseDetection.movenet.modelType.SINGLEPOSE_LIGHTNING,
+    poseDetection.movenet.modelType.SINGLEPOSE_THUNDER,
+  ];
+
+  for (const modelType of modelTypes) {
     try {
       detector = await poseDetection.createDetector(
         poseDetection.SupportedModels.MoveNet,
-        { modelType: poseDetection.movenet.modelType.SINGLEPOSE_THUNDER }
+        { modelType }
       );
       modelLoaded = true;
-    } catch(e2) {
-      throw new Error('AI model failed to load. Please refresh the page.');
-    }
+      return; // success
+    } catch(e) { /* try next */ }
   }
+
+  throw new Error('AI model failed to load. Please refresh the page.');
 }
 
 // ── Start camera ─────────────────────────────────────
