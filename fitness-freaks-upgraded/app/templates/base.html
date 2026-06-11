@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}FitnessFreak AI — Your AI Fitness Companion{% endblock %}</title>
+  <meta name="description" content="{% block meta_desc %}FitnessFreak AI uses computer vision and smart algorithms to help you correct your posture and build a personalised diet plan.{% endblock %}">
+  <meta name="keywords" content="fitness, AI posture checker, diet generator, BMI, health, workout">
+  <meta name="theme-color" content="#0d0d0d">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="FitnessFreak AI">
+  <meta property="og:description" content="AI-powered posture correction and diet planning.">
+  <meta property="og:type" content="website">
+
+  <!-- Favicons -->
+  <link href="{{ url_for('static', filename='img/favicon.png') }}" rel="icon">
+  <link href="{{ url_for('static', filename='img/apple-touch-icon.png') }}" rel="apple-touch-icon">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS -->
+  <link href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='vendor/glightbox/css/glightbox.min.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='vendor/aos/aos.css') }}" rel="stylesheet">
+
+  <!-- Main CSS -->
+  <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet">
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="header d-flex align-items-center">
+    <div class="container-fluid d-flex align-items-center justify-content-between">
+
+      <a href="/" class="logo d-flex align-items-center gap-2">
+        <div class="logo-icon">
+          <i class="bi bi-activity"></i>
+        </div>
+        <span class="logo-text">FitnessFreak<span class="logo-ai">AI</span></span>
+      </a>
+
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li><a href="/" class="{{ home }}">Home</a></li>
+          <li><a href="/about-us" class="{{ about }}">About</a></li>
+          <li><a href="/services" class="{{ services }}">Services</a></li>
+          <li><a href="/contact-us" class="{{ contact }}">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions d-flex align-items-center gap-3">
+        <a href="/services" class="btn-cta-header d-none d-lg-flex">Get Started <i class="bi bi-arrow-right"></i></a>
+        <button class="mobile-nav-toggle" id="mobileNavToggle" aria-label="Toggle navigation">
+          <i class="bi bi-list" id="mobileNavIcon"></i>
+        </button>
+      </div>
+
+    </div>
+  </header>
+  <!-- End Header -->
+
+  <!-- Mobile Nav Overlay -->
+  <div id="mobileNavOverlay" class="mobile-nav-overlay"></div>
+
+  {% block body %}{% endblock body %}
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer" class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="row gy-4 align-items-start">
+
+          <div class="col-lg-4">
+            <a href="/" class="footer-logo d-flex align-items-center gap-2 mb-3">
+              <div class="logo-icon logo-icon-sm"><i class="bi bi-activity"></i></div>
+              <span class="logo-text">FitnessFreak<span class="logo-ai">AI</span></span>
+            </a>
+            <p class="footer-desc">AI-powered posture correction and personalised diet planning for a healthier you.</p>
+          </div>
+
+          <div class="col-lg-2 col-6">
+            <h6 class="footer-heading">Navigate</h6>
+            <ul class="footer-links">
+              <li><a href="/">Home</a></li>
+              <li><a href="/about-us">About</a></li>
+              <li><a href="/services">Services</a></li>
+              <li><a href="/contact-us">Contact</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-2 col-6">
+            <h6 class="footer-heading">Tools</h6>
+            <ul class="footer-links">
+              <li><a href="/posture-checker">Posture Check</a></li>
+              <li><a href="/diet-generator">Diet Planner</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-4">
+            <h6 class="footer-heading">Stay Connected</h6>
+            <div class="footer-social d-flex gap-3 mb-3">
+              <a href="#" aria-label="Twitter"><i class="bi bi-twitter-x"></i></a>
+              <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+              <a href="#" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+              <a href="#" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
+            </div>
+            <p class="footer-contact-info"><i class="bi bi-envelope me-2"></i>karishmasain2004@gmail.com</p>
+          </div>
+
+        </div>
+
+        <div class="footer-bottom d-flex justify-content-between align-items-center flex-wrap gap-2">
+          <p>&copy; 2025 <strong>FitnessFreak AI</strong>. All rights reserved.</p>
+          <p class="footer-made">Made with <i class="bi bi-heart-fill text-danger"></i> by Karishma ✨</p>
+        </div>
+
+      </div>
+    </div>
+  </footer>
+  <!-- End Footer -->
+
+  <a href="#" class="scroll-top d-flex align-items-center justify-content-center" aria-label="Scroll to top">
+    <i class="bi bi-arrow-up-short"></i>
+  </a>
+
+  <!-- Toast notification -->
+  <div id="toast" class="ff-toast" role="alert" aria-live="polite"></div>
+
+  <!-- Preloader -->
+  <div id="preloader"><div class="preloader-bar"></div></div>
+
+  <!-- Vendor JS -->
+  <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendor/glightbox/js/glightbox.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendor/aos/aos.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+  {% block scripts %}{% endblock scripts %}
+</body>
+</html>

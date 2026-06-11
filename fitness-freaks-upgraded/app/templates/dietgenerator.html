@@ -1,0 +1,142 @@
+{% extends "base.html" %}
+{% block title %}AI Diet Generator — FitnessFreak AI{% endblock %}
+{% block meta_desc %}Get a personalised meal plan based on your BMI, BMR and TDEE. Enter your stats and our AI builds your diet instantly.{% endblock %}
+
+{% block body %}
+<main id="main">
+  <div class="page-header">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-7 text-center" data-aos="fade-up">
+          <span class="section-eyebrow">Nutrition AI</span>
+          <h1 class="page-title">Personalised Diet Generator</h1>
+          <p class="page-desc">Enter your body stats and we'll calculate your BMI, BMR, and daily calorie target, then generate a full meal plan tailored to your goal.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="diet-section section-pad">
+    <div class="container">
+      <div class="row g-4 justify-content-center">
+
+        <!-- Form Panel -->
+        <div class="col-lg-4 col-md-6" data-aos="fade-right">
+          <div class="diet-form-card">
+            <h3 class="diet-form-title">Your Stats</h3>
+
+            <div class="form-group-ff mb-3">
+              <label class="ff-label" for="height">Height <span class="ff-unit">(cm)</span></label>
+              <input type="number" id="height" class="ff-input" placeholder="e.g. 170" min="100" max="250" required>
+              <div class="ff-input-hint d-none" id="heightHint">Enter a value between 100–250 cm</div>
+            </div>
+
+            <div class="form-group-ff mb-3">
+              <label class="ff-label" for="weight">Weight <span class="ff-unit">(kg)</span></label>
+              <input type="number" id="weight" class="ff-input" placeholder="e.g. 70" min="20" max="300" required>
+              <div class="ff-input-hint d-none" id="weightHint">Enter a value between 20–300 kg</div>
+            </div>
+
+            <div class="form-group-ff mb-3">
+              <label class="ff-label" for="age">Age <span class="ff-unit">(years)</span></label>
+              <input type="number" id="age" class="ff-input" placeholder="e.g. 25" min="10" max="100" required>
+              <div class="ff-input-hint d-none" id="ageHint">Enter your age (10–100)</div>
+            </div>
+
+            <div class="form-group-ff mb-4">
+              <label class="ff-label">Gender</label>
+              <div class="gender-toggle d-flex gap-2">
+                <button class="gender-btn active" id="genderMale" onclick="setGender('male', this)">
+                  <i class="bi bi-gender-male me-2"></i>Male
+                </button>
+                <button class="gender-btn" id="genderFemale" onclick="setGender('female', this)">
+                  <i class="bi bi-gender-female me-2"></i>Female
+                </button>
+              </div>
+            </div>
+
+            <button class="btn-primary-ff w-100" id="generateBtn" onclick="generateDiet()">
+              <span id="generateBtnText"><i class="bi bi-stars me-2"></i>Generate My Plan</span>
+              <span id="generateBtnLoader" class="d-none">
+                <span class="spinner-border spinner-border-sm me-2" role="status"></span>Calculating…
+              </span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Results Panel -->
+        <div class="col-lg-8" data-aos="fade-left">
+
+          <!-- Idle state -->
+          <div class="diet-idle-state text-center" id="dietIdle">
+            <div class="diet-idle-icon"><i class="bi bi-clipboard2-heart"></i></div>
+            <h4>Your plan will appear here</h4>
+            <p>Fill in your stats on the left and click "Generate My Plan".</p>
+          </div>
+
+          <!-- Results -->
+          <div id="dietResults" class="d-none">
+
+            <!-- Metric Cards -->
+            <div class="row g-3 mb-4" id="metricCards">
+              <div class="col-6 col-md-3">
+                <div class="metric-card">
+                  <span class="metric-label">BMI</span>
+                  <span class="metric-val" id="rBmi">—</span>
+                  <span class="metric-sub" id="rBmiCat">—</span>
+                </div>
+              </div>
+              <div class="col-6 col-md-3">
+                <div class="metric-card">
+                  <span class="metric-label">BMR</span>
+                  <span class="metric-val" id="rBmr">—</span>
+                  <span class="metric-sub">kcal/day at rest</span>
+                </div>
+              </div>
+              <div class="col-6 col-md-3">
+                <div class="metric-card metric-card-accent">
+                  <span class="metric-label">Daily Target</span>
+                  <span class="metric-val" id="rTdee">—</span>
+                  <span class="metric-sub">kcal/day</span>
+                </div>
+              </div>
+              <div class="col-6 col-md-3">
+                <div class="metric-card">
+                  <span class="metric-label">Goal</span>
+                  <span class="metric-val metric-val-sm" id="rGoal">—</span>
+                  <span class="metric-sub" id="rTarget">—</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tip Banner -->
+            <div class="diet-tip-banner mb-4" id="dietTip"></div>
+
+            <!-- Meal Plan Accordion -->
+            <div class="diet-plan-card">
+              <div class="diet-plan-header d-flex justify-content-between align-items-center mb-4">
+                <h4 class="mb-0"><i class="bi bi-journal-text me-2"></i>Your Meal Plan</h4>
+                <button class="btn-export" onclick="exportPlan()"><i class="bi bi-download me-2"></i>Export</button>
+              </div>
+
+              <div id="mealAccordion" class="accordion diet-accordion"></div>
+            </div>
+
+            <!-- Hydration -->
+            <div class="hydration-card mt-4" id="hydrationCard">
+              <i class="bi bi-droplet-half"></i>
+              <span id="hydrationText"></span>
+            </div>
+
+          </div><!-- /dietResults -->
+        </div>
+
+      </div>
+    </div>
+  </section>
+</main>
+{% endblock body %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/diet.js') }}"></script>
+{% endblock scripts %}

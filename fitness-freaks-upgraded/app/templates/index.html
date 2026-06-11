@@ -1,0 +1,241 @@
+{% extends "base.html" %}
+{% block title %}FitnessFreak AI — AI Posture & Diet Platform{% endblock %}
+
+{% block body %}
+
+<!-- ======= Hero ======= -->
+<section id="hero" class="hero">
+  <div class="hero-bg"></div>
+  <div class="container">
+    <div class="row align-items-center min-vh-100">
+      <div class="col-lg-6" data-aos="fade-right" data-aos-delay="100">
+        <div class="hero-badge mb-4">
+          <i class="bi bi-stars me-2"></i> AI-Powered Fitness Platform
+        </div>
+        <h1 class="hero-title">
+          Train Smarter.<br>
+          <span class="hero-title-accent">Live Stronger.</span>
+        </h1>
+        <p class="hero-desc">
+          Real-time AI posture correction and personalised diet plans — built for the modern lifestyle. No gym membership required.
+        </p>
+        <div class="hero-cta d-flex flex-wrap gap-3">
+          <a href="/posture-checker" class="btn-primary-ff">
+            <i class="bi bi-camera-video me-2"></i> Check My Posture
+          </a>
+          <a href="/diet-generator" class="btn-outline-ff">
+            <i class="bi bi-clipboard2-heart me-2"></i> Generate Diet Plan
+          </a>
+        </div>
+        <div class="hero-stats d-flex gap-4 mt-5">
+          <div class="hero-stat">
+            <span class="hero-stat-num">10K+</span>
+            <span class="hero-stat-label">Users</span>
+          </div>
+          <div class="hero-stat-divider"></div>
+          <div class="hero-stat">
+            <span class="hero-stat-num">98%</span>
+            <span class="hero-stat-label">Accuracy</span>
+          </div>
+          <div class="hero-stat-divider"></div>
+          <div class="hero-stat">
+            <span class="hero-stat-num">2</span>
+            <span class="hero-stat-label">AI Tools</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 d-none d-lg-flex justify-content-end" data-aos="fade-left" data-aos-delay="300">
+        <div class="hero-visual">
+          <div class="hero-card hero-card-posture">
+            <div class="hcard-icon"><i class="bi bi-person-bounding-box"></i></div>
+            <div class="hcard-info">
+              <span class="hcard-label">Posture Score</span>
+              <div class="hcard-bar"><div class="hcard-bar-fill" style="width:88%"></div></div>
+              <span class="hcard-val">88 / 100</span>
+            </div>
+          </div>
+          <div class="hero-card hero-card-diet">
+            <div class="hcard-icon hcard-icon-green"><i class="bi bi-apple"></i></div>
+            <div class="hcard-info">
+              <span class="hcard-label">Today's Calories</span>
+              <span class="hcard-big">1,840 <small>kcal</small></span>
+            </div>
+          </div>
+          <img src="https://images.pexels.com/photos/5384613/pexels-photo-5384613.jpeg?auto=compress&cs=tinysrgb&w=700"
+               alt="Person doing fitness exercise" class="hero-img">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-scroll-hint">
+    <i class="bi bi-chevron-down"></i>
+  </div>
+</section>
+<!-- End Hero -->
+
+<main id="main">
+
+  <!-- ======= Features Strip ======= -->
+  <section class="features-strip">
+    <div class="container">
+      <div class="row g-0">
+        <div class="col-md-4 feature-strip-item" data-aos="fade-up" data-aos-delay="100">
+          <i class="bi bi-camera-video"></i>
+          <div>
+            <h5>Live Posture AI</h5>
+            <p>Real-time skeleton overlay &amp; posture score</p>
+          </div>
+        </div>
+        <div class="col-md-4 feature-strip-item" data-aos="fade-up" data-aos-delay="200">
+          <i class="bi bi-calculator"></i>
+          <div>
+            <h5>BMI + TDEE Calculator</h5>
+            <p>Precise targets based on your body metrics</p>
+          </div>
+        </div>
+        <div class="col-md-4 feature-strip-item" data-aos="fade-up" data-aos-delay="300">
+          <i class="bi bi-clipboard2-pulse"></i>
+          <div>
+            <h5>Smart Diet Plans</h5>
+            <p>Calorie-matched meals for your goal</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= Services Preview ======= -->
+  <section id="services" class="services-section section-pad">
+    <div class="container">
+      <div class="section-header text-center mb-5" data-aos="fade-up">
+        <span class="section-eyebrow">What We Offer</span>
+        <h2 class="section-title">Two Powerful AI Tools</h2>
+        <p class="section-sub">Combine both for a complete health transformation.</p>
+      </div>
+      <div class="row g-4 justify-content-center">
+
+        <div class="col-lg-5 col-md-6" data-aos="fade-up" data-aos-delay="100">
+          <div class="service-card service-card-posture">
+            <div class="scard-top">
+              <div class="scard-icon"><i class="bi bi-person-bounding-box"></i></div>
+              <span class="scard-tag">Computer Vision</span>
+            </div>
+            <h3>Posture Checker</h3>
+            <p>Our MediaPipe-powered engine analyses 33 skeletal landmarks in real time, calculates joint angles, and tells you instantly if you're sitting or standing correctly.</p>
+            <ul class="scard-features">
+              <li><i class="bi bi-check-circle-fill"></i> Works via webcam — desktop &amp; mobile</li>
+              <li><i class="bi bi-check-circle-fill"></i> Instant Good/Bad feedback overlay</li>
+              <li><i class="bi bi-check-circle-fill"></i> No account needed</li>
+            </ul>
+            <a href="/posture-checker" class="scard-btn">Start Posture Check <i class="bi bi-arrow-right"></i></a>
+          </div>
+        </div>
+
+        <div class="col-lg-5 col-md-6" data-aos="fade-up" data-aos-delay="200">
+          <div class="service-card service-card-diet">
+            <div class="scard-top">
+              <div class="scard-icon scard-icon-green"><i class="bi bi-clipboard2-heart"></i></div>
+              <span class="scard-tag scard-tag-green">Nutrition AI</span>
+            </div>
+            <h3>Diet Generator</h3>
+            <p>Enter your height, weight, age, and gender. Our algorithm calculates your BMR, TDEE, and BMI category, then creates a calorie-matched meal plan with breakfast, lunch, dinner, and snacks.</p>
+            <ul class="scard-features">
+              <li><i class="bi bi-check-circle-fill"></i> Personalised calorie targets</li>
+              <li><i class="bi bi-check-circle-fill"></i> Gender-aware nutritional logic</li>
+              <li><i class="bi bi-check-circle-fill"></i> Exportable meal plan</li>
+            </ul>
+            <a href="/diet-generator" class="scard-btn scard-btn-green">Generate My Plan <i class="bi bi-arrow-right"></i></a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= How It Works ======= -->
+  <section id="how" class="how-section section-pad section-dark">
+    <div class="container">
+      <div class="section-header text-center mb-5" data-aos="fade-up">
+        <span class="section-eyebrow">The Process</span>
+        <h2 class="section-title">How It Works</h2>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+          <div class="how-step">
+            <div class="how-num">01</div>
+            <h4>Enter Your Stats</h4>
+            <p>Provide height, weight, age, and gender to let our system understand your body.</p>
+          </div>
+        </div>
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+          <div class="how-step">
+            <div class="how-num">02</div>
+            <h4>AI Analyses</h4>
+            <p>Our algorithms calculate BMI, BMR, and TDEE. For posture, MediaPipe reads your live camera feed.</p>
+          </div>
+        </div>
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+          <div class="how-step">
+            <div class="how-num">03</div>
+            <h4>Get Results</h4>
+            <p>Receive real-time posture feedback or a structured meal plan tailored to your goal.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= Gallery ======= -->
+  <section id="gallery" class="gallery-section section-pad">
+    <div class="container">
+      <div class="section-header text-center mb-5" data-aos="fade-up">
+        <span class="section-eyebrow">Inspiration</span>
+        <h2 class="section-title">Fitness in Motion</h2>
+      </div>
+      <div class="row g-3">
+        {% set imgs = [
+          ("https://images.pexels.com/photos/1153369/pexels-photo-1153369.jpeg?auto=compress&cs=tinysrgb&w=600","Healthy Eating","https://www.hsph.harvard.edu/nutritionsource/healthy-eating-plate/"),
+          ("https://images.pexels.com/photos/6740754/pexels-photo-6740754.jpeg?auto=compress&cs=tinysrgb&w=600","Yoga","https://ro.co/health-guide/yoga-meditation/"),
+          ("https://images.pexels.com/photos/3076509/pexels-photo-3076509.jpeg?auto=compress&cs=tinysrgb&w=600","Exercise","https://www.health.harvard.edu/staying-healthy/exercising-to-relax"),
+          ("https://images.pexels.com/photos/1954524/pexels-photo-1954524.jpeg?auto=compress&cs=tinysrgb&w=600","Workout","https://www.anytimefitness.co.in/blog/"),
+          ("https://images.pexels.com/photos/4056723/pexels-photo-4056723.jpeg?auto=compress&cs=tinysrgb&w=600","Stretching","https://www.mayoclinic.org/healthy-lifestyle/fitness/in-depth/stretching/art-20047931"),
+          ("https://images.pexels.com/photos/841130/pexels-photo-841130.jpeg?auto=compress&cs=tinysrgb&w=600","Weightlifting","https://www.healthline.com/health/fitness-exercise-weight-training"),
+          ("https://images.pexels.com/photos/1472887/pexels-photo-1472887.jpeg?auto=compress&cs=tinysrgb&w=600","Jogging","https://www.betterhealth.vic.gov.au/health/healthyliving/running-and-jogging-health-benefits"),
+          ("https://images.pexels.com/photos/863988/pexels-photo-863988.jpeg?auto=compress&cs=tinysrgb&w=600","Swimming","https://www.betterhealth.vic.gov.au/health/healthyliving/swimming-health-benefits")
+        ] %}
+        {% for src, title, link in imgs %}
+        <div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="{{ loop.index * 50 }}">
+          <div class="gallery-item">
+            <img src="{{ src }}" alt="{{ title }}" loading="lazy">
+            <div class="gallery-overlay">
+              <span class="gallery-title">{{ title }}</span>
+              <div class="gallery-actions">
+                <a href="{{ src }}" class="glightbox" data-gallery="fitness" title="{{ title }}">
+                  <i class="bi bi-zoom-in"></i>
+                </a>
+                <a href="{{ link }}" target="_blank" rel="noopener">
+                  <i class="bi bi-box-arrow-up-right"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= CTA Banner ======= -->
+  <section class="cta-banner section-pad">
+    <div class="container text-center" data-aos="zoom-in">
+      <h2 class="cta-banner-title">Ready to transform your health?</h2>
+      <p class="cta-banner-sub">Start with a posture check or generate your personalised diet plan — both free, both instant.</p>
+      <div class="d-flex justify-content-center gap-3 flex-wrap">
+        <a href="/posture-checker" class="btn-primary-ff">Check Posture Now</a>
+        <a href="/diet-generator" class="btn-outline-ff btn-outline-ff-light">Build My Diet Plan</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+{% endblock body %}

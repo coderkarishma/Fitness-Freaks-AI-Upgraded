@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block title %}Services — FitnessFreak AI{% endblock %}
+
+{% block body %}
+<main id="main">
+  <div class="page-header">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-7 text-center" data-aos="fade-up">
+          <span class="section-eyebrow">Our Tools</span>
+          <h1 class="page-title">Services</h1>
+          <p class="page-desc">Two AI-powered tools designed to improve your posture and nutrition — free to use, no account required.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="services-section section-pad">
+    <div class="container">
+      <div class="row g-4 justify-content-center">
+
+        <div class="col-lg-5 col-md-6" data-aos="fade-up" data-aos-delay="100">
+          <div class="service-card service-card-posture">
+            <div class="scard-top">
+              <div class="scard-icon"><i class="bi bi-person-bounding-box"></i></div>
+              <span class="scard-tag">Computer Vision</span>
+            </div>
+            <h3>Posture Checker</h3>
+            <p>Our MediaPipe-powered AI uses your webcam to detect and analyse 33 body landmarks, calculating joint angles to give real-time posture feedback.</p>
+            <ul class="scard-features">
+              <li><i class="bi bi-check-circle-fill"></i> In-browser WebRTC — no server upload</li>
+              <li><i class="bi bi-check-circle-fill"></i> Live Good / Bad posture detection</li>
+              <li><i class="bi bi-check-circle-fill"></i> Works on desktop and mobile</li>
+              <li><i class="bi bi-check-circle-fill"></i> Privacy-first: camera never leaves device</li>
+            </ul>
+            <a href="/posture-checker" class="scard-btn">Try Posture Checker <i class="bi bi-arrow-right"></i></a>
+          </div>
+        </div>
+
+        <div class="col-lg-5 col-md-6" data-aos="fade-up" data-aos-delay="200">
+          <div class="service-card service-card-diet">
+            <div class="scard-top">
+              <div class="scard-icon scard-icon-green"><i class="bi bi-clipboard2-heart"></i></div>
+              <span class="scard-tag scard-tag-green">Nutrition AI</span>
+            </div>
+            <h3>Diet Generator</h3>
+            <p>Calculates your BMI, BMR, and TDEE using Harris-Benedict equations, then generates a calorie-matched full-day meal plan for your specific goal.</p>
+            <ul class="scard-features">
+              <li><i class="bi bi-check-circle-fill"></i> BMI + BMR + TDEE calculations</li>
+              <li><i class="bi bi-check-circle-fill"></i> Gender-aware calorie targets</li>
+              <li><i class="bi bi-check-circle-fill"></i> Breakfast, lunch, dinner & snacks</li>
+              <li><i class="bi bi-check-circle-fill"></i> Export meal plan as text</li>
+            </ul>
+            <a href="/diet-generator" class="scard-btn scard-btn-green">Try Diet Generator <i class="bi bi-arrow-right"></i></a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Coming Soon -->
+      <div class="text-center mt-6" data-aos="fade-up" data-aos-delay="300">
+        <div class="coming-soon-strip">
+          <i class="bi bi-rocket-takeoff me-2"></i>
+          <strong>Coming Soon:</strong> Workout Planner, Progress Tracker, and Calorie Logger
+        </div>
+      </div>
+
+    </div>
+  </section>
+</main>
+{% endblock body %}

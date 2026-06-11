@@ -1,0 +1,156 @@
+{% extends "base.html" %}
+{% block title %}AI Posture Checker — FitnessFreak AI{% endblock %}
+{% block meta_desc %}Use your webcam with our AI posture checker. Real-time skeleton detection powered by MediaPipe.{% endblock %}
+
+{% block body %}
+<main id="main">
+  <div class="page-header">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-7 text-center" data-aos="fade-up">
+          <span class="section-eyebrow">Computer Vision</span>
+          <h1 class="page-title">AI Posture Checker</h1>
+          <p class="page-desc">Our MediaPipe AI analyses 33 body landmarks in real time and tells you whether your posture is correct. Allow camera access when prompted.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="posture-section section-pad">
+    <div class="container">
+
+      <!-- Mode Toggle -->
+      <div class="mode-toggle-wrap d-flex justify-content-center mb-5" data-aos="fade-up">
+        <div class="mode-toggle">
+          <button class="mode-btn active" id="btnBrowser" onclick="switchMode('browser')">
+            <i class="bi bi-camera-video me-2"></i>Browser Mode <span class="mode-badge">Recommended</span>
+          </button>
+          <button class="mode-btn" id="btnServer" onclick="switchMode('server')">
+            <i class="bi bi-server me-2"></i>Server Mode
+          </button>
+        </div>
+      </div>
+
+      <!-- ===== BROWSER MODE (WebRTC + TensorFlow.js) ===== -->
+      <div id="browserMode" data-aos="fade-up" data-aos-delay="100">
+        <div class="posture-layout">
+
+          <!-- Left: Camera feed -->
+          <div class="posture-cam-wrap">
+            <div class="cam-status-bar" id="camStatusBar">
+              <span id="camStatusDot" class="status-dot status-idle"></span>
+              <span id="camStatusText">Camera not started</span>
+            </div>
+
+            <div class="cam-container" id="camContainer">
+              <video id="webcamVideo" autoplay playsinline muted></video>
+              <canvas id="poseCanvas"></canvas>
+
+              <!-- Overlay: idle state -->
+              <div class="cam-idle-overlay" id="camIdleOverlay">
+                <div class="cam-idle-inner">
+                  <div class="cam-idle-icon"><i class="bi bi-camera-video-off"></i></div>
+                  <h4>Camera is off</h4>
+                  <p>Click Start to begin posture analysis</p>
+                </div>
+              </div>
+
+              <!-- Overlay: loading -->
+              <div class="cam-loading-overlay d-none" id="camLoadingOverlay">
+                <div class="spinner-border text-success" role="status"></div>
+                <p class="mt-3" id="loadingText">Loading AI model…</p>
+              </div>
+
+              <!-- Posture label badge -->
+              <div class="posture-badge d-none" id="postureBadge">
+                <i class="bi bi-check-circle-fill" id="postureIcon"></i>
+                <span id="postureLabel">Analysing…</span>
+              </div>
+            </div>
+
+            <!-- Controls -->
+            <div class="cam-controls d-flex gap-3 justify-content-center mt-3">
+              <button class="ctrl-btn ctrl-btn-start" id="startBtn" onclick="startCamera()">
+                <i class="bi bi-play-fill me-2"></i>Start Camera
+              </button>
+              <button class="ctrl-btn ctrl-btn-stop d-none" id="stopBtn" onclick="stopCamera()">
+                <i class="bi bi-stop-fill me-2"></i>Stop
+              </button>
+              <button class="ctrl-btn ctrl-btn-flip d-none" id="flipBtn" onclick="flipCamera()">
+                <i class="bi bi-camera-fill me-2"></i>Flip
+              </button>
+            </div>
+
+            <!-- Permission error -->
+            <div class="cam-error d-none" id="camError">
+              <i class="bi bi-exclamation-triangle-fill me-2"></i>
+              <span id="camErrorText">Camera access denied. Please allow camera permissions in your browser settings.</span>
+            </div>
+          </div>
+
+          <!-- Right: Info panel -->
+          <div class="posture-info-panel">
+
+            <div class="info-card" id="postureScoreCard">
+              <div class="info-card-header">
+                <i class="bi bi-graph-up-arrow"></i> Live Posture Score
+              </div>
+              <div class="score-ring-wrap">
+                <svg class="score-ring" viewBox="0 0 120 120">
+                  <circle cx="60" cy="60" r="52" class="ring-bg"/>
+                  <circle cx="60" cy="60" r="52" class="ring-fill" id="scoreRingFill"
+                          stroke-dasharray="326.7" stroke-dashoffset="326.7"/>
+                </svg>
+                <div class="score-ring-label">
+                  <span class="score-num" id="scoreNum">—</span>
+                  <span class="score-unit">/ 100</span>
+                </div>
+              </div>
+              <p class="score-hint" id="scoreHint">Start camera to see your score</p>
+            </div>
+
+            <div class="info-card mt-3">
+              <div class="info-card-header"><i class="bi bi-lightbulb"></i> Posture Tips</div>
+              <ul class="tips-list">
+                <li><i class="bi bi-arrow-right-circle-fill"></i> Keep your back straight and shoulders relaxed</li>
+                <li><i class="bi bi-arrow-right-circle-fill"></i> Screen should be at eye level</li>
+                <li><i class="bi bi-arrow-right-circle-fill"></i> Feet flat on the floor, knees at 90°</li>
+                <li><i class="bi bi-arrow-right-circle-fill"></i> Take a break every 30 minutes</li>
+              </ul>
+            </div>
+
+            <div class="info-card mt-3">
+              <div class="info-card-header"><i class="bi bi-info-circle"></i> How AI Detects Posture</div>
+              <p class="info-text">We use <strong>TensorFlow.js MoveNet</strong> to detect 17 key joint positions directly in your browser. Joint angles between your shoulders, hips, and knees are compared against ideal posture thresholds — all processing stays on your device.</p>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== SERVER MODE (MJPEG stream) ===== -->
+      <div id="serverMode" class="d-none" data-aos="fade-up">
+        <div class="server-mode-notice mb-4">
+          <i class="bi bi-info-circle me-2"></i>
+          Server mode streams from the machine running the Flask app. Only works when the server has webcam access (local development). For deployed apps, use Browser Mode.
+        </div>
+        <div class="text-center">
+          <div class="mjpeg-wrap">
+            <img src="/video" alt="Server posture stream" class="mjpeg-img" id="mjpegImg"
+                 onerror="handleMjpegError()">
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</main>
+{% endblock body %}
+
+{% block scripts %}
+<!-- TensorFlow.js + MoveNet for in-browser pose detection -->
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-core@4.17.0/dist/tf-core.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-webgl@4.17.0/dist/tf-backend-webgl.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/pose-detection@2.1.3/dist/pose-detection.min.js"></script>
+<script src="{{ url_for('static', filename='js/posture.js') }}"></script>
+{% endblock scripts %}

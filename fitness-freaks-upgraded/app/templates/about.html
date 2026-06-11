@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% block title %}About — FitnessFreak AI{% endblock %}
+
+{% block body %}
+<main id="main">
+  <div class="page-header">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-7 text-center" data-aos="fade-up">
+          <span class="section-eyebrow">Our Mission</span>
+          <h1 class="page-title">About FitnessFreak AI</h1>
+          <p class="page-desc">Built to tackle two of the most common modern health problems — poor posture from desk work, and poor nutrition from busy schedules.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="about-section section-pad">
+    <div class="container">
+      <div class="row g-5 align-items-center">
+        <div class="col-lg-5" data-aos="fade-right">
+          <img src="https://images.pexels.com/photos/5384613/pexels-photo-5384613.jpeg?auto=compress&cs=tinysrgb&w=700"
+               alt="Fitness" class="about-img img-fluid">
+        </div>
+        <div class="col-lg-7" data-aos="fade-left">
+          <span class="section-eyebrow">The Problem We Solve</span>
+          <h2 class="about-title">Modern life is breaking our bodies.</h2>
+          <p class="about-body">Sedentary lifestyles, prolonged screen time, and poor dietary habits are contributing to musculoskeletal problems and metabolic disorders at record rates. FitnessFreak AI was created to give everyone — regardless of budget — access to intelligent, personalised health guidance.</p>
+          <p class="about-body">We use <strong>computer vision</strong> (MediaPipe / TensorFlow.js) for real-time posture correction and <strong>nutritional science algorithms</strong> (Harris-Benedict equations) for diet planning.</p>
+
+          <div class="row g-3 mt-2">
+            <div class="col-sm-6">
+              <div class="about-fact">
+                <i class="bi bi-check2-circle"></i>
+                <span>Real-time skeleton detection</span>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="about-fact">
+                <i class="bi bi-check2-circle"></i>
+                <span>BMR / TDEE science-based calculations</span>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="about-fact">
+                <i class="bi bi-check2-circle"></i>
+                <span>100% browser-side privacy</span>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="about-fact">
+                <i class="bi bi-check2-circle"></i>
+                <span>No account or subscription needed</span>
+              </div>
+            </div>
+          </div>
+
+          <a href="/services" class="btn-primary-ff mt-4 d-inline-flex">Explore Our Tools <i class="bi bi-arrow-right ms-2"></i></a>
+        </div>
+      </div>
+
+      <!-- Team / Project Info -->
+      <div class="row g-4 mt-5">
+        <div class="col-12 text-center mb-3" data-aos="fade-up">
+          <span class="section-eyebrow">Get In Touch</span>
+          <h2 class="section-title">Contact Details</h2>
+        </div>
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+          <div class="contact-info-card">
+            <i class="bi bi-geo-alt-fill"></i>
+            <h5>Location</h5>
+            <p>IMS Engineering College, Ghaziabad</p>
+          </div>
+        </div>
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+          <div class="contact-info-card">
+            <i class="bi bi-envelope-fill"></i>
+            <h5>Email</h5>
+            <p>karishmasain2004@gmail.com</p>
+          </div>
+        </div>
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+          <div class="contact-info-card">
+            <i class="bi bi-telephone-fill"></i>
+            <h5>Phone</h5>
+            <p>+91 73039 91585</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+{% endblock body %}

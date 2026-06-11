@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+{% block title %}Contact — FitnessFreak AI{% endblock %}
+
+{% block body %}
+<main id="main">
+  <div class="page-header">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-7 text-center" data-aos="fade-up">
+          <span class="section-eyebrow">Reach Out</span>
+          <h1 class="page-title">Contact Us</h1>
+          <p class="page-desc">Have a question, suggestion, or want to collaborate? Drop us a message and we'll get back to you.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="contact-section section-pad">
+    <div class="container">
+
+      <div class="row g-4 justify-content-center mb-5">
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+          <div class="contact-info-card">
+            <i class="bi bi-geo-alt-fill"></i>
+            <h5>Location</h5>
+            <p>Ghaziabad</p>
+          </div>
+        </div>
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+          <div class="contact-info-card">
+            <i class="bi bi-envelope-fill"></i>
+            <h5>Email</h5>
+            <p>karishmasain2004@gmail.com</p>
+          </div>
+        </div>
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+          <div class="contact-info-card">
+            <i class="bi bi-telephone-fill"></i>
+            <h5>Phone</h5>
+            <p>+91 73039 91585</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="row justify-content-center" data-aos="fade-up" data-aos-delay="200">
+        <div class="col-lg-7">
+          <div class="contact-form-card">
+            <h3 class="mb-4">Send a Message</h3>
+
+            <div id="formSuccess" class="form-success-msg d-none">
+              <i class="bi bi-check-circle-fill me-2"></i>
+              Message sent successfully! We'll be in touch soon.
+            </div>
+            <div id="formError" class="form-error-msg d-none"></div>
+
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="ff-label" for="cName">Your Name</label>
+                <input type="text" id="cName" class="ff-input" placeholder="Jane Doe" required>
+              </div>
+              <div class="col-md-6">
+                <label class="ff-label" for="cEmail">Email Address</label>
+                <input type="email" id="cEmail" class="ff-input" placeholder="you@example.com" required>
+              </div>
+              <div class="col-12">
+                <label class="ff-label" for="cSubject">Subject</label>
+                <input type="text" id="cSubject" class="ff-input" placeholder="How can we help?" required>
+              </div>
+              <div class="col-12">
+                <label class="ff-label" for="cMessage">Message</label>
+                <textarea id="cMessage" class="ff-input ff-textarea" rows="5" placeholder="Tell us more…" required></textarea>
+              </div>
+              <div class="col-12">
+                <button class="btn-primary-ff w-100" id="submitBtn" onclick="submitContact()">
+                  <span id="submitBtnText"><i class="bi bi-send me-2"></i>Send Message</span>
+                  <span id="submitBtnLoader" class="d-none">
+                    <span class="spinner-border spinner-border-sm me-2" role="status"></span>Sending…
+                  </span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</main>
+{% endblock body %}
+
+{% block scripts %}
+<script>
+function submitContact() {
+  const name    = document.getElementById('cName').value.trim();
+  const email   = document.getElementById('cEmail').value.trim();
+  const subject = document.getElementById('cSubject').value.trim();
+  const message = document.getElementById('cMessage').value.trim();
+
+  document.getElementById('formSuccess').classList.add('d-none');
+  document.getElementById('formError').classList.add('d-none');
+
+  if (!name || !email || !subject || !message) {
+    const err = document.getElementById('formError');
+    err.textContent = 'Please fill in all fields before sending.';
+    err.classList.remove('d-none');
+    return;
+  }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    const err = document.getElementById('formError');
+    err.textContent = 'Please enter a valid email address.';
+    err.classList.remove('d-none');
+    return;
+  }
+
+  const btn = document.getElementById('submitBtn');
+  document.getElementById('submitBtnText').classList.add('d-none');
+  document.getElementById('submitBtnLoader').classList.remove('d-none');
+  btn.disabled = true;
+
+  fetch('/contact-us', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+    body: new URLSearchParams({name, email, subject, message})
+  })
+  .then(r => r.json())
+  .then(data => {
+    if (data.status === 'success') {
+      document.getElementById('formSuccess').classList.remove('d-none');
+      document.getElementById('cName').value = '';
+      document.getElementById('cEmail').value = '';
+      document.getElementById('cSubject').value = '';
+      document.getElementById('cMessage').value = '';
+    } else {
+      const err = document.getElementById('formError');
+      err.textContent = data.message || 'Something went wrong. Please try again.';
+      err.classList.remove('d-none');
+    }
+  })
+  .catch(() => {
+    const err = document.getElementById('formError');
+    err.textContent = 'Network error. Please check your connection and try again.';
+    err.classList.remove('d-none');
+  })
+  .finally(() => {
+    document.getElementById('submitBtnText').classList.remove('d-none');
+    document.getElementById('submitBtnLoader').classList.add('d-none');
+    btn.disabled = false;
+  });
+}
+</script>
+{% endblock scripts %}
